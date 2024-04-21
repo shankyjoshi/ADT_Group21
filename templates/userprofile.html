@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - A2Z AmazeComparator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Profile - A2Z AmazeComparator</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+        <style>
+            body {
+                background-color: #FFF9E8;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                color: #333;
+            }
+    
+            .navbar-custom {
+                background-color: #9C0000;
+                color: #FFF9E8;
+            }
+    
+            .btn-custom {
+                background-color: #9C0000;
+                color: #FFF9E8;
+                transition: all 0.3s ease;
+                padding: 10px 20px; /* Adjust padding for spacing */
+                border: none; /* Remove default border */
+                border-radius: 25px; /* Rounded corners */
+                font-weight: bold; /* Make the text bold */
+                text-transform: uppercase; /* Uppercase text */
+                letter-spacing: 1px; /* Spacing between letters */
+                margin: 10px; /* Spacing around the button */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            }
+            
+            .btn-custom:hover, .btn-custom:focus {
+                background-color: #FFF9E8;
+                color: #9C0000;
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* More prominent shadow on hover/focus */
+                outline: none; /* Remove outline on focus */
+            }            
+    
+            .container {
+                padding-top: 20px;
+            }
+    
+            .footer-section {
+                background-color: #9C0000;
+                color: #FFF9E8;
+            }
+    
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+    
+            th, td {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+    
+            th {
+                background-color: #9C0000;
+                color: white;
+            }
+    
+            .user-greeting {
+                display: inline-block;
+                cursor: pointer;
+                animation: glowing-border 2s infinite alternate;
+                padding: 5px 10px;
+                border-radius: 15px;
+            }
+    
+            @keyframes glowing-border {
+                0% { border: 2px solid #9C0000; }
+                100% { border: 2px solid #FFF9E8; }
+            }
+    
+            /* Dropdown Styling */
+            .dropdown:hover .dropdown-menu {
+                display: block;
+            }
+    
+            .dropdown-menu {
+                margin-top: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-custom">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='img/logo.webp') }}" alt="Logo">
+                    <span>A2Z AmazeComparator</span>
+                </a>
+                <div class="dropdown ml-auto">
+                    <div class="user-greeting dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Welcome, {{ session.username }}!
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url_for('index') }}">Home</a>
+                        <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    <div class="container">
+        <h1 class = "trending-title">Update Profile</h1>
+        <form method="POST" action="{{ url_for('update_profile') }}">
+            <div class="form-group">
+                <label for="newUsername">New Username:</label>
+                <input type="text" class="form-control" id="newUsername" name="newUsername" required>
+            </div>
+            <button type="submit" class="btn btn-custom">Update Profile</button>
+        </form>
+        
+        <!-- Form for adding a review -->
+        <h2 class = "trending-title" >Add a Product Review</h2>
+        <form method="POST" action="{{ url_for('user_profile') }}">
+            <div class="form-group">
+                <label for="product_id">Product:</label>
+                <select class="form-control" id="product_id" name="product_id" required>
+                    <option value="" disabled selected>Please select the product name...</option>
+                    {% for product in products %}
+                    <option value="{{ product[0] }}">{{ product[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="review_id">Review ID:</label>
+                <input type="text" class="form-control" id="review_id" name="review_id" required>
+            </div>
+            <div class="form-group">
+                <label for="review_title">Review Title:</label>
+                <input type="text" class="form-control" id="review_title" name="review_title" required>
+            </div>
+            <div class="form-group">
+                <label for="review_content">Review Content:</label>
+                <textarea class="form-control" id="review_content" name="review_content" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-custom">Submit Review</button>
+        </form>
+
+        <!-- Display existing reviews -->
+<h2 class = "trending-title">Your Product Reviews</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Review ID</th>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Review Title</th>
+            <th>Review Content</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for review in reviews %}
+        <tr>
+            <td>{{ review[0] }}</td>
+            <td>{{ review[1] }}</td>
+            <td>{{ review[2] }}</td>
+            <td>{{ review[3] }}</td>
+            <td>{{ review[4] }}</td>
+            <td>
+                <form action="{{ url_for('delete_review', review_id=review[0]) }}" method="POST">
+                    <button type="submit" class="btn btn-custom btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="6">No reviews found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    </div>
+    <!-- Delete Account Button -->
+    <div class="container text-center mt-4 mb-4">
+        <form action="{{ url_for('delete_account') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+            <button type="submit" align = "center" class="btn btn-custom">Delete Account</button>
+        </form>
+    </div>
+    <footer class="footer-section">
+        <div class="container text-center">
+            <p>&copy; 2024 A2Z Amazon Comparator. All Rights Reserved.</p>
+        </div>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

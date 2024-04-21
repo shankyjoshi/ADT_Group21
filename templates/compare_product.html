@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Products - A2Z AmazeComparator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery and jQuery UI for Autocomplete -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <!-- Custom Styles -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FFF9E8;
+        }
+        .product-card {
+            background-color: #FFF9E8;
+            border: 1px solid #9C0000;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 50px;
+            margin-left: 15px;  /* space on the left of the card */
+            margin-right: 15px; /* space on the right of the card */
+        }
+        .product-card h5 {
+            color: #9C0000;
+            font-size: 1.25rem;
+        }
+        .product-card .btn-outline-secondary {
+            border-color: #9C0000;
+            color: #9C0000;
+        }
+        .product-card .btn-outline-secondary:hover {
+            background-color: #9C0000;
+            color: #FFF9E8;
+        }
+        .product-details {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .product-details span {
+            font-weight: bold;
+        }
+        #search-button {
+            background-color: #9C0000;
+            color: #FFF9E8;
+        }
+        body {
+            font-family: "Times New Roman", Times, serif;
+        }
+        .heading {
+            text-align: center;
+            color: black;
+            font-weight: normal;
+        }
+        .col-md-4 {
+        padding: 0 15px; /* This will add 15px padding on both sides */
+    }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar with Back to Main Site Button -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <!-- Logo and Title -->
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='img/logo.webp') }}" alt="Logo">
+                <span>A2Z AmazeComparator</span>
+            </a>
+            <!-- Toggler/Collapsible Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Back to Main Site Button -->
+                <button class="btn btn-custom" type="button" onclick="window.location.href= '{{url_for('index')}}'">Back to Main Site</button>
+            </div>
+        </div>
+    </nav>
+
+    <h1 class="heading">Compare Products - A2Z AmazeComparator</h1>
+    <div class="container mt-4">
+        <div class="search-product-container">
+            <input class="form-control" id="product-search" type="text" placeholder="Search for a product..." style="margin-bottom: 10px;">
+            <button id="search-button" class="btn">Search</button>
+        </div>        
+        
+        <div id="product-cards" class="row mt-4">
+            <!-- Product cards will be added here dynamically -->
+        </div>
+    </div>
+    <!-- Custom Script for Autocomplete and Managing Product Cards -->
+    <script>
+        $(function() {
+            $("#product-search").autocomplete({
+                source: "{{ url_for('autocomplete') }}",
+                minLength: 2,
+                select: function(event, ui) {
+                    // Fetch product details and add product card
+                    fetchProductDetails(ui.item.value);
+                    return false;
+                }
+            });
+        });
+
+        function fetchProductDetails(productName) {
+            // AJAX call to fetch product details from the server
+            // This is a placeholder example, should be replaced with actual AJAX call
+            $.ajax({
+                url: '/get_product_details', // Your Flask route
+                data: { 'product_name': productName },
+                success: function(data) {
+                    addProductCard(data);
+                }
+            });
+        }
+
+        <!-- ...existing code... -->
+
+        function addProductCard(product) {
+            var cardHtml = `
+                <div class="col-md-4 product-card">
+                    <h5>${product.product_name}</h5>
+                    <div class="product-details">
+                        <p><span>ID:</span> ${product.product_id}</p>
+                        <p><span>Price:</span> $${product.discounted_price}</p>
+                        <p><span>Discount:</span> ${product.discount_percentage}%</p>
+                        <p><span>Rating:</span> ${product.rating} / 5</p>
+                        <p><span>About:</span> ${product.about_product}</p>
+                        <button type="button" class="btn btn-sm btn-outline-secondary remove-btn" onclick="removeProductCard(this)">Remove</button>
+                    </div>
+                </div>`;
+            $('#product-cards').append(cardHtml);
+        }
+
+        function removeProductCard(btn) {
+            $(btn).closest('.product-card').remove();
+        }
+    </script>
+</body>
+</html>

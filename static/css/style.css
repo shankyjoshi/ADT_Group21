@@ -1,0 +1,480 @@
+style.css
+body {
+    background-color: #FFF9E8;
+    font-family: Arial, sans-serif;
+}
+
+.navbar-custom {
+    background-color: #9C0000;
+    color: white;
+}
+
+.navbar-custom .navbar-nav .nav-link {
+    color: white;
+    margin-right: 15px;
+}
+
+.navbar-custom .navbar-nav .nav-link:hover {
+    color: #FFF9E8;
+}
+
+.navbar-custom .form-inline {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-custom .search-bar {
+    flex-grow: 1;
+    margin-right: 15px;
+}
+
+.navbar-custom .btn-outline-success {
+    color: #9C0000;
+    border-color: #9C0000;
+}
+
+.navbar-custom .btn-outline-success:hover {
+    background-color: #9C0000;
+    color: white;
+}
+
+.navbar-custom .dropdown {
+    margin-right: 15px;
+}
+
+.navbar-custom .dropdown-menu {
+    background-color: #9C0000;
+    border: none;
+}
+
+.navbar-custom .dropdown-menu .dropdown-item {
+    color: white;
+}
+
+.navbar-custom .dropdown-menu .dropdown-item:hover {
+    background-color: #FFF9E8;
+    color: #9C0000;
+}
+
+.add-product-button {
+    background-color: #FFF9E8;
+    color: #9C0000;
+    border: 1px solid #9C0000;
+}
+
+.add-product-button:hover {
+    background-color: #9C0000;
+    color: white;
+}
+
+/* Additional styling can go here */
+
+/* Base styles for body, search input and button */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #FFF9E8;
+}
+
+/* Styling search bar */
+/* Enhancing the search bar with gradients and transitions */
+.search-bar {
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 30px;
+    width: 100%; /* Take full width of the container */
+    transition: all 0.3s ease-in-out; /* Smooth transition for border and box-shadow */
+    font-size: 16px; /* Increased font size for better readability */
+    color: #333; /* Slightly darker font color for better contrast */
+    background-image: linear-gradient(to right, #f9f9f9, #fff); /* Subtle gradient effect */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Soft shadow for depth */
+}
+
+/* Interactive focus effect with animation */
+.search-bar:focus {
+    outline: none;
+    border-color: #9C0000;
+    box-shadow: 0 0 10px rgba(156, 0, 0, 0.5); /* Glowing effect on focus */
+    
+    /* Animation to highlight the search bar on focus */
+    animation: pulse 1s infinite alternate;
+}
+
+/* Keyframes for the pulse animation used on focus */
+@keyframes pulse {
+    from {
+        box-shadow: 0 0 10px rgba(156, 0, 0, 0.5);
+    }
+    to {
+        box-shadow: 0 0 15px rgba(156, 0, 0, 0.7);
+    }
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .search-bar {
+        padding: 8px 15px; /* Smaller padding on smaller screens */
+        border-radius: 25px; /* Adjusted border-radius for smaller screens */
+    }
+}
+
+/* Enhance search container with shadow and border radius */
+.search-container {
+    position: relative;
+    width: 90%; /* Adjust based on your layout */
+    max-width: 400px; /* Max width of the search bar */
+    margin: auto; /* Center in the available space */
+    display: flex;
+    border-radius: 20px; /* Soft rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    background: #ffffff; /* White background */
+    overflow: hidden; /* Ensures contents stay within the rounded border */
+}
+
+/* Adjust the search button to match the container's styling */
+.search-button {
+    border: none;
+    background-color: #9C0000; /* Match with your site's color scheme */
+    color: #FFF9E8;
+    padding: 10px 15px; /* Symmetrical padding */
+    border-top-right-radius: 20px; /* Rounded corner on the right side */
+    border-bottom-right-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+/* Change background color on hover */
+.search-button:hover {
+    background-color: #790000; /* Darker shade for hover state */
+}
+
+/* Add focus styles for accessibility */
+.search-button:focus {
+    outline: 2px solid #FFF9E8; /* Light outline for focus state */
+    outline-offset: 2px; /* Spacing between outline and button edge */
+}
+
+/* Positioning and sizing of the autocomplete container to match the search bar */
+.ui-autocomplete {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%); /* Centers the dropdown */
+    z-index: 1000;
+    display: none;
+    width: 90%; /* Set width relative to the search bar width */
+    max-width: 450px; /* Maximum width can be adjusted based on your layout */
+    padding: 5px 0;
+    margin-top: 2px; /* Add a small space between search bar and dropdown */
+    list-style: none;
+    font-size: 14px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Ensures the dropdown does not stretch beyond the width */
+}
+
+/* Style each item in the dropdown */
+.ui-menu-item-wrapper {
+    padding: 10px 15px; /* Adjusted padding for better spacing */
+    font-weight: 400;
+    color: #333;
+    white-space: nowrap;
+    text-overflow: ellipsis; /* Ensures text doesn't wrap and shows ellipsis if cut off */
+    overflow: hidden;
+    width: 100%; /* Sets item width to match the dropdown width */
+}
+
+/* Hover and focus styles for items in the dropdown */
+.ui-menu-item:hover, .ui-menu-item:focus {
+    background-color: #efefef; /* Light grey background for hover/focus */
+    color: #555; /* Slightly darker text color for better contrast on hover/focus */
+}
+
+/* Advanced: Adding a subtle fade-in animation for the dropdown */
+.ui-autocomplete {
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Additional custom styles */
+/* ... */
+
+
+/* Additional styles */
+/* ... */
+@keyframes glow {
+    0%, 100% {
+        color: #FFF9E8;
+        text-shadow: none;
+    }
+    50% {
+        color: #FFF9E8;
+        text-shadow: 0 0 10px #FFF9E8, 0 0 20px #FFF9E8, 0 0 30px #FFF9E8, 0 0 40px #FFF9E8;
+    }
+}
+
+.navbar-custom .navbar-brand {
+    color: #FFF9E8;
+    font-weight: bold;
+    animation: glow 5s ease-in-out infinite;
+}
+
+
+/* Make sure the logo fits well and aligns with the navigation items */
+.navbar-brand img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out; /* Extended transition to include shadow */
+    will-change: transform, box-shadow; /* Optimize for animations */
+}
+
+.navbar-brand img:hover {
+    transform: rotate(-10deg) scale(1.1); /* Subtle rotation and scaling */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* Adds a soft shadow for depth */
+}
+
+
+
+.navbar-custom {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Custom button color */
+.btn-custom {
+    background-color: #FFF9E8; /* Light background color */
+    color: #9C0000; /* Dark text color */
+    border-color: #9C0000; /* Dark border color */
+}
+
+/* Button hover state */
+.btn-custom:hover {
+    background-color: #9C0000; /* Dark background color for hover state */
+    color: #FFF9E8; /* Light text color for hover state */
+    border-color: #FFF9E8; /* Keep the border color the same or adjust as desired */
+}.table {
+    background-color: #ffffff;
+    border-collapse: separate;
+    width: 100%;
+    margin: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-spacing: 0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: #9C0000;
+    color: #FFF9E8;
+}
+
+.table thead th {
+    font-weight: bold;
+    padding: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    transition: background-color 0.3s;
+}
+
+.table tbody td {
+    padding: 0.75rem 1rem;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.table tbody tr {
+    transition: background-color 0.3s;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.table tbody tr:hover td {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table tbody td::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background-color: #9C0000;
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+
+.table tbody tr:hover td::before {
+    transform: scaleX(1);
+}
+
+.table tbody td:first-child::before {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.table tbody td:last-child::before {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.trending-title {
+    font-family: 'Times New Roman', sans-serif; /* Replace with your desired font */
+    font-weight: normal; /* Use 'bold' if you want the title to be bold */
+    text-transform: uppercase; /* Capitalizes all letters */
+    color: #090909; /* Dark grey color, adjust as needed */
+    text-align: center; /* Center the title if the design requires it */
+    border-bottom: 2px solid #333; /* Dark grey underline, adjust as needed */
+    display: inline-block; /* Needed to apply the border only under the text */
+    margin-bottom: 20px; /* Space below the title */
+    padding-bottom: 5px; /* Space between text and underline */
+}
+
+.best-seller {
+    background-color: #ffff99;  /* Light yellow background for highlighting */
+    font-weight: bold;  /* Optional: make text bold */
+}
+
+.scroll-container {
+    max-height: 400px;  /* or any appropriate height */
+    overflow-y: auto;  /* enables vertical scrolling */
+}
+
+/* Footer Styles */
+.footer-section {
+    background-color: #9C0000;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .footer-section .footer-heading {
+    color: #FFF9E8;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .footer-section .footer-title {
+    color: #FFF9E8;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  .footer-section .footer-links a {
+    color: #FFF9E8;
+    text-decoration: none;
+    padding: 5px 0;
+    display: block;
+  }
+  
+  .footer-section .footer-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-section .btn-footer-subscribe {
+    background-color: #FFF9E8;
+    color: #9C0000;
+    border: 1px solid #FFF9E8;
+  }
+  
+  .footer-section .btn-footer-subscribe:hover {
+    background-color: #9C0000;
+    color: #FFF9E8;
+    border: 1px solid #FFF9E8;
+  }
+  
+  .footer-section .form-control {
+    border: 1px solid #FFF9E8;
+    background-color: transparent;
+    color: #FFF9E8;
+  }
+  
+  .footer-section .form-control::placeholder {
+    color: #FFF9E8;
+  }
+  
+  .footer-section .input-group-text {
+    background-color: #9C0000;
+    border: 1px solid #FFF9E8;
+    color: #FFF9E8;
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid #FFF9E8;
+    padding-top: 20px;
+    margin-top: 20px;
+  }
+  
+  .footer-bottom p {
+    color: #FFF9E8;
+    font-size: 14px;
+  }
+  
+  @media (max-width: 768px) {
+    .footer-section .input-group {
+      width: 100%;
+    }
+  }
+
+  .navbar-user-image {
+    width: 32px;  /* Or the size you prefer */
+    height: 32px; /* Maintain the aspect ratio */
+    border-radius: 50%; /* Makes the image circular */
+    background-color: #FFF9E8;
+}
+
+/* Optional: Style the dropdown menu */
+.dropdown-menu-right {
+    right: 0; /* Aligns the dropdown menu to the right side of the button */
+}
+
+.user-greeting {
+    font-family: 'Times New Roman', serif;
+    padding-left: 10px;
+    padding-right: 40px;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Add space between 'Hi,' and the username */
+  }
+
+  .greeting-text {
+    font-size: 1.2em; /* Adjust the size as needed */
+    font-weight: bold;
+    animation: fadeInGreeting 1.5s ease-out forwards, moveIn 1.5s ease-out forwards;
+  }
+
+  strong {
+    font-size: 1.2em;
+    color: #FFF9E8; /* Adjust color as needed */
+    animation: popIn 0.5s ease-out 1s forwards; /* Start after the greeting text fades in */
+  }
+
+  @keyframes fadeInGreeting {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes moveIn {
+    0% { transform: translateX(-30px); }
+    100% { transform: translateX(0); }
+  }
+
+  @keyframes popIn {
+    0% { transform: scale(0); }
+    85% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+  }
+  
