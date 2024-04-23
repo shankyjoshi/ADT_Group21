@@ -1,5 +1,9 @@
 # ADT_Group21
 
+## Instructions
+- pip install -r requirements.txt
+- python3 app.py
+
 <pre>
 Team Members
 Dhyey Joshi (dhyjoshi@iu.edu ) 

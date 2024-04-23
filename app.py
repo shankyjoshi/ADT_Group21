@@ -1,15 +1,30 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session
 from flask_mysqldb import MySQL
-import json, sys
+import json, sys, os
 
 app = Flask(__name__)
 
-# Configure database details directly
-app.config['MYSQL_HOST'] = '127.0.0.1'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'amazon_sales_project'
-app.secret_key = 'advance_database_project'  # Change to a random secret key
+#Get the environment variables
+MYSQL_HOST = os.getenv('MYSQL_HOST', '')
+MYSQL_USER = os.getenv('MYSQL_USER', '')
+MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD', '')
+MYSQL_DB = os.getenv('MYSQL_DATABASE', '')
+secret_key = os.getenv('SECRET_KEY', '')
+
+#print("Check" + MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB, secret_key)
+
+# Configure database details using environment variables
+app.config['MYSQL_HOST'] = MYSQL_HOST
+app.config['MYSQL_USER'] = MYSQL_USER
+app.config['MYSQL_PASSWORD'] = MYSQL_PASSWORD
+app.config['MYSQL_DB'] = MYSQL_DB
+app.secret_key = secret_key  # Change to a random secret key
+
+# app.config['MYSQL_HOST'] = MYSQL_HOST
+# app.config['MYSQL_USER'] = MYSQL_USER
+# app.config['MYSQL_PASSWORD'] = ''
+# app.config['MYSQL_DB'] = 'amazon_sales_project'
+# app.secret_key = 'advance_database_project'  # Change to a random secret key
 
 mysql = MySQL(app)
 
